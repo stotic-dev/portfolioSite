@@ -4,14 +4,14 @@ import styled from "styled-components";
 export const TitleAndArticle = () => {
   return (
     <Container>
-      <h1 className="title">About</h1>
+      <h1 className="title">About Me</h1>
       <p className="line sub-title">web developer & mobile app developer</p>
       <div className="line article">
         <p>Hello I am web engneer.</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-        <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+        <p>please my skill from below</p>
+        <p>javascript & typescript: 3 month of development experience</p>
+        <p>react: 2 month of development experience</p>
+        <p>webpack: 3 month of development experience</p>
       </div>
     </Container>
   );
