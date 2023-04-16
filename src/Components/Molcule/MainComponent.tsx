@@ -1,13 +1,28 @@
 import { TitleAndArticle } from "../Orgazm/TitleAndArticle";
 import { WrapperContainer } from "../styledComponents/WrapperStyled";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import styled from "styled-components";
 import mainImage from "../../Assets/Img/programmer-scanning-screen-his-smartwatch-with-smartphone-camera.jpg";
 import profIconImage from "../../Assets/Img/myProfileIcon.jpg";
 import { Link } from "react-router-dom";
 import { InputEmail } from "../Orgazm/InputEmail";
+import { IntersectionOptions, useInView } from "react-intersection-observer";
 
 export const MainComponent = () => {
+
+  // hooks
+  const userInViewOptions: IntersectionOptions = {
+    triggerOnce: true,
+  }
+  const [aboutRef, aboutInView] = useInView({
+    ...userInViewOptions,
+  });
+  const [blogRef, blogInView] = useInView({
+    ...userInViewOptions,
+  });
+  const [contactRef, contactInView] = useInView({
+    ...userInViewOptions,
+  });
 
   const submitAction = (e: FormEvent) => {
     console.log("clicked submit button");
@@ -15,11 +30,11 @@ export const MainComponent = () => {
 
   return (
     <Container>
-      <section className="main">
+      <section className='main'>
         <h1>No Code No Life</h1>
         <img className="main-image" src={mainImage} alt="main-image" />
       </section>
-      <section className="about">
+      <InViewSection className="about" ref={aboutRef} inView={aboutInView}>
         <WrapperContainer>
           <AboutContainer>
             <div className="iconWrapper">
@@ -28,8 +43,8 @@ export const MainComponent = () => {
             <TitleAndArticle />
           </AboutContainer>
         </WrapperContainer>
-      </section>
-      <section className="blog">
+      </InViewSection>
+      <InViewSection className="blog" ref={blogRef} inView={blogInView}>
         <WrapperContainer>
           <BlogConttainer>
             <h1 className="blog-title">Go to Blog</h1>
@@ -37,19 +52,26 @@ export const MainComponent = () => {
             <StyleLinkButton><Link to="/">Blog</Link></StyleLinkButton>
           </BlogConttainer>
         </WrapperContainer>
-      </section>
-      <section className="contact">
+      </InViewSection>
+      <InViewSection className="contact" ref={contactRef} inView={contactInView}>
         <WrapperContainer>
           <ContactContainer>
             <h1 className="contact-title">Contact Me</h1>
             <InputEmail submitAction={submitAction} />
           </ContactContainer>
         </WrapperContainer>
-      </section>
+      </InViewSection>
     </Container>
   );
 };
 
+// interface
+interface Props{
+  inView: boolean;
+}
+
+
+// styled Components
 const Container = styled.div`
   width: 100%;
 
@@ -111,6 +133,16 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  @keyframes feedIn {
+    0% {
+      opacity: 0;
+      transform: translateY(150%);
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
@@ -189,3 +221,10 @@ const ContactContainer = styled.div`
     margin-bottom: 60px;
   }
 `;
+
+const InViewSection = styled.section<Props>`
+  transition: 0.7s;
+  transform: ${(props) =>
+    props.inView ? "translateY(0)" : "translateY(50px)"};
+  opacity: ${(props) => (props.inView ? 1 : 0.5)};
+`

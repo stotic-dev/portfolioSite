@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { WrapperContainer } from "../styledComponents/WrapperStyled";
+import { useInView } from "react-intersection-observer";
 
 export const HeaderComponent = () => {
+
   return (
-    <WrapperContainer>
-      <Container>
+    <WrapperContainer >
+      <Container >
         <h3 className="header-title">Taichi-Code</h3>
         <ul>
           <li>
@@ -24,6 +26,7 @@ export const HeaderComponent = () => {
   );
 };
 
+// styled components
 const Container = styled.div`
   width: 100%;
   height: 100%;

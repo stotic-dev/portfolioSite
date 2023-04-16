@@ -15,7 +15,7 @@ export const InputEmail: FC<Prop> = ({ submitAction }) => {
     <Container>
       <form onSubmit={defaultSubmit}>
         <input className="input" placeholder="your email" type="email" />
-        <input className="submit btn" type="submit" />
+        <input className="submit btn" type="submit" value="contact" />
       </form>
     </Container>
   );
@@ -39,6 +39,10 @@ const Container = styled.div`
     border-radius: 20px;
     border: 1px solid #989898;
     padding: 0 15px;
+
+    &:focus{
+      outline: none;
+    }
   }
 
   .submit {
@@ -55,6 +59,7 @@ const Container = styled.div`
     &:hover {
       background-color: #ffffff;
       color: #000000;
+      border-width: 0.3px;
     }
   }
 `;
