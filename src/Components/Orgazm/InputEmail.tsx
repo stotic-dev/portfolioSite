@@ -1,20 +1,21 @@
-import React, { FC, FormEvent } from "react";
+import React, { FC, FormEvent, useRef } from "react";
 import styled from "styled-components";
 
 interface Prop {
-  submitAction: (e: FormEvent) => void;
+  submitAction: (e: FormEvent<HTMLFormElement>, email?: string) => void;
 }
 
 export const InputEmail: FC<Prop> = ({ submitAction }) => {
-  const defaultSubmit = (e: FormEvent) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const defaultSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitAction(e);
+    submitAction(e, ref.current?.value);
   };
 
   return (
     <Container>
       <form onSubmit={defaultSubmit}>
-        <input className="input" placeholder="your email" type="email" />
+        <input ref={ref} className="input" placeholder="your email" type="email" />
         <input className="submit btn" type="submit" value="contact" />
       </form>
     </Container>

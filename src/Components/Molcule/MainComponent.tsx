@@ -1,12 +1,13 @@
 import { TitleAndArticle } from "../Orgazm/TitleAndArticle";
 import { WrapperContainer } from "../styledComponents/WrapperStyled";
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useContext, useEffect } from "react";
 import styled from "styled-components";
 import mainImage from "../../Assets/Img/programmer-scanning-screen-his-smartwatch-with-smartphone-camera.jpg";
 import profIconImage from "../../Assets/Img/myProfileIcon.jpg";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { InputEmail } from "../Orgazm/InputEmail";
 import { IntersectionOptions, useInView } from "react-intersection-observer";
+import { UserContext, userInfo } from "../../Providers/UserProvider";
 
 export const MainComponent = () => {
 
@@ -23,9 +24,24 @@ export const MainComponent = () => {
   const [contactRef, contactInView] = useInView({
     ...userInViewOptions,
   });
+  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
 
-  const submitAction = (e: FormEvent) => {
-    console.log("clicked submit button");
+// submit Action Method
+  const submitAction = (e: FormEvent<HTMLFormElement>, email?: string) => {
+    e.preventDefault();
+    
+    if(email){
+
+      console.log(`get value: ${email}`);
+      const userInfo: userInfo = {
+        email: email,
+      };
+
+      userContext.setInfo(userInfo);
+      navigate('/contact');
+    }
+
   }
 
   return (
